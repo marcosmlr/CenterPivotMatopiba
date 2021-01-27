@@ -1,0 +1,3 @@
+This command is part of the GDAL Command Tools - https://gdal.org/programs/ogrmerge.html
+
+ogrmerge.py -single -o ./shp/LC8_pivots_merged_polygons.shp ./shp/LC8_pivots_*_polygon.shp

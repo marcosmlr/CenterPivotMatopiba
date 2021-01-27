@@ -1,0 +1,11 @@
+*.py[cod]
+
+#Conf. files:
+.env
+
+#Spatial files:
+*.shp
+*.dbf
+*.prj
+*.shx
+*.geojson

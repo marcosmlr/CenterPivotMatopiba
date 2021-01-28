@@ -28,7 +28,7 @@ With Conda installed [#]_, run::
   $ make install
   $ conda activate CenterPivotMatopiba
 
-.. [#] If you are using a git server inside a private network and are using a self-signed certificate or a certificate over an IP address ; you may also simply use the git global config to disable the ssl checks::
+.. [#] If you are using a git server inside a private network and are using a self-signed certificate or a certificate over an IP address, you may also simply use the git global config to disable the ssl checks::
 
   git config --global http.sslverify "false"
 
@@ -46,27 +46,27 @@ First of all, we need to do download the dataset (3 partial ZIP files) [#]_ cont
 
 Steps to identify center pivots using Python environment:
 
-- DetectingCenterPivot.py - program to read remote sensing images and apply Hough Transform to identify candidate circles of pivots and export this objects to shapefiles
-       The main function receive wildcard name of input files. Ex. "GreenestSR_pixel_composite_2017_*.tif".
+- DetectingCenterPivot.py - program to read remote sensing images and apply Hough Transform to identify candidate circles of pivots and export these objects to shapefiles
+       The main function receives the wildcard name of input files. Ex. "GreenestSR_pixel_composite_2017_*.tif".
        
-**Obs.:** After this process, we need to run a command of GDAL toolkit tools to merge all shapefiles. Please see file AboutPivots_shapesMerged.txt to further information.  
+**Obs.:** After this process, we need to run a command of GDAL toolkit tools to merge all shapefiles. Please see the file AboutPivots_shapesMerged.txt to further information.  
 
 - geoPoint.py - program to read all circles identified throw Hough Transform and extract cardinals points in the middle of each circle. These points will be used for the next step, when will create Time Series of Vegetation Indices, in these points to characterize vegetation response of circles identified.  
  
 
-Now, we need activate R environment. Please run::  
+Now, we need to activate R environment. Please run::  
 
   $ conda activate r_wtss
 
 - wtss.r - program to read coordinates of points extracted from circles and create vegetation time series of NDVI/EVI using the API from Web Time Series Service (WTSS) of e-sensing project. 
 
-Finally, go to back (Python environment)::
+Finally, go to the back (Python environment)::
 
   $ conda deactivate
 
-- eda.py - program to analyse and filter circles detected using Hough Transform comparing vegetation behavior of this targets against Center Pivot Systems mapped from Brazilian National Water Agency (ANA) to validate results.
+- eda.py - program to analyze and filter circles detected using Hough Transform comparing vegetation behavior of these targets against Center Pivot Systems mapped from Brazilian National Water Agency (ANA) to validate results.
         
-The final product of the processing is a shapefile with all center pivots identified according to threshods of NDVI/EVI extracted from ANA pivots mapped.  
+The final product of the processing is a shapefile with all center pivots identified according to thresholds of NDVI/EVI extracted from ANA pivots mapped.  
 
 
 Data Processing Requirements
@@ -78,10 +78,10 @@ This version of the application requires the input files to be in the GeoTIFF fo
 Disclaimer
 ----------
 
-This software is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The software has not received final approval by the National Institute for Space Research (INPE). No warranty, expressed or implied, is made by the INPE or the Brazil Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. The software is provided on the condition that neither the INPE nor the Brazil Government shall be held liable for any damages resulting from the authorized or unauthorized use of the software.
+This software is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The software has not received final approval from the National Institute for Space Research (INPE). No warranty, expressed or implied, is made by the INPE or the Brazil Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. The software is provided on the condition that neither the INPE nor the Brazil Government shall be held liable for any damages resulting from the authorized or unauthorized use of the software.
 
 
-Licence
+License
 -------
 
 MIT License

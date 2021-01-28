@@ -95,8 +95,14 @@ for (veg_ind in c("ndvi","evi") ) {
           quit('no',1,FALSE)
       }
       else{
-          time_series$MOD13Q1$attributes$ndvi[time_series$MOD13Q1$attributes$ndvi == missing_value]<-NA 
-          time_series$MOD13Q1$attributes$ndvi <- time_series$MOD13Q1$attributes$ndvi*scale
+          if ( veg_ind == 'ndvi'){
+            time_series$MOD13Q1$attributes$ndvi[time_series$MOD13Q1$attributes$ndvi == missing_value]<-NA 
+            time_series$MOD13Q1$attributes$ndvi <- time_series$MOD13Q1$attributes$ndvi*scale
+          }
+          else if ( veg_ind == 'evi'){
+            time_series$MOD13Q1$attributes$evi[time_series$MOD13Q1$attributes$evi == missing_value]<-NA 
+            time_series$MOD13Q1$attributes$evi <- time_series$MOD13Q1$attributes$evi*scale
+          }
           names(time_series$MOD13Q1$attributes) <- i
 
           if (i > 1)         

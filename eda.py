@@ -43,11 +43,9 @@ if what_veg['EVI']:
     del [[data_evi]]
     
     # Standard deviation of each time series samples
-    #std_evi = np.array(data_evi.std())
     std_evi = np.array(data_evi_sma.iloc[:,3::4].std())
 
     # amplitude of each time series samples
-    #amplitude_evi = np.array(data_evi[:].max() - data_evi[:].min())
     amplitude_evi = np.array(data_evi_sma.iloc[:,3::4].max() - data_evi_sma.iloc[:,3::4].min())
 
 if what_veg['NDVI']:
@@ -65,55 +63,24 @@ if what_veg['NDVI']:
     del [[data_ndvi]]
 
     # Standard deviation of each time series samples
-    #std_ndvi = np.array(data_ndvi.std())
     std_ndvi = np.array(data_ndvi_sma.iloc[:,3::4].std())
 
     # amplitude of each time series samples
-    #amplitude_ndvi = np.array(data_ndvi[:].max() - data_ndvi[:].min())
     amplitude_ndvi = np.array(data_ndvi_sma.iloc[:,3::4].max() - data_ndvi_sma.iloc[:,3::4].min())
-
-# Identify missing samples:
-# missing = np.argwhere(np.isnan(std))
-# print(data.iloc[:,np.squeeze(missing)])
 
 #Clean objects:
 gc.collect()
 del gc.garbage[:]
 
-#indexs_threshold = np.where( (std_ndvi > 0.20) & (amplitude_ndvi > 0.56)) #835/868 pivots
-#indexs_threshold = np.where( (std_ndvi > 0.05) & (amplitude_ndvi > 0.07)) #1196/1388
-#indexs_threshold = np.where( (std_ndvi > 0.026) & (amplitude_ndvi > 0.07)) #1222/1422
-#indexs_threshold = np.where( (std_ndvi > 0.02) & (amplitude_ndvi > 0.06)) #1224/1424
-
-#indexs_threshold = np.where(((std_evi > 0.01) & (amplitude_ndvi > 0.05)) & ((std_ndvi > 0.02) & (amplitude_ndvi > 0.06)) ) #1224/1424
-#indexs_threshold = np.where(((std_evi > 0.03) & (amplitude_ndvi > 0.07)) & ((std_ndvi > 0.02) & (amplitude_ndvi > 0.06)) ) #1224/1423
 indexs_threshold = np.where(((std_evi > 0.02) & (amplitude_ndvi > 0.07)) & ((std_ndvi > 0.02) & (amplitude_ndvi > 0.06)) ) #1224/1424
-
-#print(std_evi[indexs_threshold])
-#print(amplitude_evi[indexs_threshold])
-
-# Era necessario quanto era considerado todas as amostras, agora usa-se Moving Average a cada 4 amostras:
-#print(df.loc[indexs_threshold])
-#print(np.unique(df.loc[indexs_threshold].values))
-#print(gdf.loc[np.unique(df.loc[indexs_threshold].values)])
-#for poly in gdf.loc[np.unique(df.loc[indexs_threshold].values)].geometry:
-#    #print(poly.exterior.coords.xy)
-#    print(poly.centroid)
-# FIM - Era necessario quanto era...
-
-
 gdf_out = gdf.loc[indexs_threshold]
 
 # Read pivots mapped from ANA:
-gdf_ana = gpd.read_file('/home/image/src/python/cap240/TrabFinal/shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.shp')
+gdf_ana = gpd.read_file('./shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.shp')
 
 ##############################
 # Intersects:
 ###############
-#f = lambda x:np.sum(gdf.intersects(x))
-#inter = gdf_ana['geometry'].apply(f)
-#print(inter[inter>0].shape)
-
 
 #https://www.e-learn.cn/topic/2597069
 # generate spatial index
@@ -136,37 +103,10 @@ result_tmp =  sum(i > 0 for i in results_list)
 index_pivots = np.unique(np.concatenate(index_results_list, axis=0), axis=0) #Remove duplicates
 print('\nQuantity of circles of pivots detected matching with mapped by ANA '+ str(result_tmp) + ' from '+ str(index_pivots.shape[0]))
 
-
-### Plot STD histogram of the data
-##n, bins, patches = plt.hist(std_evi[index_pivots], bins='auto',
-##                            density=False, facecolor='b', alpha=0.75)
-##
-##print(n,bins,patches)
-##
-##plt.xlabel('Standard deviation')
-##plt.ylabel('Quantity')
-##plt.title('EVI standard deviation of detected pivots filtered with ANA pivots')
-##plt.grid(True)
-##plt.savefig('EVI_std_pivots_detected_filtered_usingNDVI.png',bbox_inches='tight',dpi=150)
-##
-##plt.clf()
-### Plot amplitude histogram of the data
-##n, bins, patches = plt.hist(amplitude_evi[index_pivots], bins='auto',
-##                            density=False, facecolor='g', alpha=0.75)
-##
-##print(n,bins,patches)
-##
-##plt.xlabel('Amplitude')
-##plt.ylabel('Quantity')
-##plt.title('EVI amplitude of detected pivots filtered with ANA pivots')
-##plt.grid(True)
-##plt.savefig('EVI_amplitude_pivots_detected_filtered_usingNDVI.png',bbox_inches='tight',dpi=150)
-
 destino = './shp'
 Utils.mkdir_p(destino)
 
 # Save result after filter the  circles based on vegetation index behavior:
-#gdf.loc[np.unique(df.loc[indexs_threshold].values)].to_file(destino+"/LC8_pivots_final_results.shp")
 gdf.loc[index_pivots].to_file(destino+"/LC8_pivots_final_results.shp")
 
 print('-> Final result exported to shapefile '+ destino+ "/LC8_pivots_final_results.shp")

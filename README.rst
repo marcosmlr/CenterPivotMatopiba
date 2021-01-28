@@ -46,8 +46,7 @@ First of all, we need to do download the dataset (3 partial ZIP files) [#]_ cont
 
 Steps to identify center pivots using Python environment:
 
-- DetectingCenterPivot.py - program to read remote sensing images and apply Hough Transform to identify candidate circles of pivots and export these objects to shapefiles
-       The main function receives the wildcard name of input files. Ex. "GreenestSR_pixel_composite_2017_*.tif".
+- DetectingCenterPivot.py - program to read remote sensing images and apply Hough Transform to identify candidate circles of pivots and export these objects to shapefiles. The main function receives the wildcard name of input files. Ex. "GreenestSR_pixel_composite_2017_*.tif".
        
 **Obs.:** After this process, we need to run a command of GDAL toolkit tools to merge all shapefiles. Please see the file AboutPivots_shapesMerged.txt to further information.  
 

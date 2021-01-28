@@ -1,7 +1,7 @@
 Center Pivot MATOPIBA
 ========================
 
-This project contains application source code for the identification of candidates circles of center pivots systems in remote sensing images, using Hough Transform and Time Series of Vegetation Indices. Basically, the path has a main module (DetectingCenterPivot.py) to detected circles based on images of greenest pixels and submodules (ReSSIM and CenterPivot) to  serching specific targets how burned areas or center pivot irrigation areas in remote sensing images.
+This project contains application source code for the identification of circles of center pivots systems in remote sensing images, using Hough Transform and Time Series of Vegetation Indices. Basically, the repository has the main program (DetectingCenterPivot.py) to detected circles based on images of greenest pixels and auxiliaries programs (geoPoint.py, wtss.r and eda.py) to extract coordinates, time series of vegetation indices, and identification of center pivots according to vegetation behavior of these areas in MATOPIBA region.
 
 Release Notes
 -------------
@@ -34,31 +34,39 @@ With Conda installed [#]_, run::
 
 
 Usage
------
+-----  
 
-First of all, we need to do download the dataset (3 partial ZIP files) [#]_ containing Geotiff images of maximum response of vegetation (Greenest Pixel) measured using NDVI index in the MATOPIBA region. Please use the next lines to unsplit and unzip images:
+First of all, we need to do download the dataset (3 partial ZIP files) [#]_ containing Geotiff images of maximum response of vegetation (Greenest Pixel) measured using NDVI index in the MATOPIBA region. Please use the next lines to unsplit and unzip images::
+
   $ zip -s 0 landsat_ndvi.zip --out landsat_ndvi_unsplit.zip
   $ unzip landsat_ndvi_unsplit.zip
 
-.. [#] The dataset is available on Figshare collection items (https://figshare.com/account/home#/collections/4846911) related to the paper "DETECTING CENTER PIVOTS IN MATOPIBA USING HOUGH TRANSFORM AND WEB TIME SERIES SERVICE".
+.. [#] The dataset is available on Figshare collection items (https://figshare.com/account/home#/collections/4846911) related to the paper "DETECTING CENTER PIVOTS IN MATOPIBA USING HOUGH TRANSFORM AND WEB TIME SERIES SERVICE".  
 
-Source code modules (Steps to identify Center Pivots Systems) using Python environment:
 
- - DetectingCenterPivot.py - program to read remote sensing images and apply Hough Transform to identify candidate circles of pivots and export this objects to shapefiles
-       The main function receive wildcard name of input files. Ex. "GreenestSR_pixel_composite_2017_*.tif". 
-**Obs.:** After this process, we need to run a command of GDAL toolkit tools to merge all shapefiles. Please see file AboutPivots_shapesMerged.txt to further information.
- - geoPoint.py - program to read all circles identified throw Hough Transform and extract cardinals points in the middle of each circle. These points will be used for the next step, when will create Time Series of Vegetation Indices, in these points to characterize vegetation response of circles identified.
+Steps to identify center pivots using Python environment:
 
-Now, we need activate R environment. Please run:
-  conda activate r_wtss
+- DetectingCenterPivot.py - program to read remote sensing images and apply Hough Transform to identify candidate circles of pivots and export this objects to shapefiles
+       The main function receive wildcard name of input files. Ex. "GreenestSR_pixel_composite_2017_*.tif".
+       
+**Obs.:** After this process, we need to run a command of GDAL toolkit tools to merge all shapefiles. Please see file AboutPivots_shapesMerged.txt to further information.  
 
-  - wtss.r - program to read coordinates of points extracted from circles and create vegetation time series of NDVI/EVI using the API from Web Time Series Service (WTSS) of e-sensing project. 
+- geoPoint.py - program to read all circles identified throw Hough Transform and extract cardinals points in the middle of each circle. These points will be used for the next step, when will create Time Series of Vegetation Indices, in these points to characterize vegetation response of circles identified.  
+ 
 
-Finally, go to back (Python environment):
-  conda deactivate
+Now, we need activate R environment. Please run::  
 
-  - eda.py - program to analyse and filter circles detected using Hough Transform comparing vegetation behavior of this targets against Center Pivot Systems mapped from Brazilian National Water Agency (ANA) to validate results.
-        The final product of the processing is a shapefile with all center pivots identified according to threshods of NDVI/EVI extracted from ANA pivots mapped.  
+  $ conda activate r_wtss
+
+- wtss.r - program to read coordinates of points extracted from circles and create vegetation time series of NDVI/EVI using the API from Web Time Series Service (WTSS) of e-sensing project. 
+
+Finally, go to back (Python environment)::
+
+  $ conda deactivate
+
+- eda.py - program to analyse and filter circles detected using Hough Transform comparing vegetation behavior of this targets against Center Pivot Systems mapped from Brazilian National Water Agency (ANA) to validate results.
+        
+The final product of the processing is a shapefile with all center pivots identified according to threshods of NDVI/EVI extracted from ANA pivots mapped.  
 
 
 Data Processing Requirements
@@ -90,4 +98,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 Authors
 -------
 
-`Rodrigues et al. <marcos.rodrigues@inpe.br>`_.
+`Rodrigues et al., (2019) <marcos.rodrigues@inpe.br>`_

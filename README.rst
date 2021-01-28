@@ -41,7 +41,7 @@ First of all, we need to do download the dataset (3 partial ZIP files) [#]_ cont
   $ zip -s 0 landsat_ndvi.zip --out landsat_ndvi_unsplit.zip
   $ unzip landsat_ndvi_unsplit.zip
 
-.. [#] The dataset is available on Figshare collection items (https://figshare.com/account/home#/collections/4846911) related to the paper "DETECTING CENTER PIVOTS IN MATOPIBA USING HOUGH TRANSFORM AND WEB TIME SERIES SERVICE".  
+.. [#] The dataset is available on Figshare collection items (https://doi.org/10.6084/m9.figshare.c.4846911) related to the paper "DETECTING CENTER PIVOTS IN MATOPIBA USING HOUGH TRANSFORM AND WEB TIME SERIES SERVICE".  
 
 
 Steps to identify center pivots using Python environment:

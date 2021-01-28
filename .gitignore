@@ -8,4 +8,8 @@
 *.dbf
 *.prj
 *.shx
+*.cpg
 *.geojson
+
+# Except this file
+!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.shp

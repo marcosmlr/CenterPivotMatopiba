@@ -19,7 +19,7 @@ install:
 	conda create -y -n r_wtss r  r-essentials r-wtss r-zoo
 
 env_export:
-	conda env export | grep -v "^prefix: " > environment.yml
+	conda env export --no-builds -c conda-forge | cut -d '=' -f1 | grep -v "^prefix: " > environment.yml
 
 clean:
 	@echo 'cleaning up temporary files'

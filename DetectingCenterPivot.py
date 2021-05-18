@@ -22,7 +22,7 @@ This version of the application requires the input files to be in the GeoTIFF fo
 Disclaimer
 This software is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The software has not received final approval by the National Institute for Space Research (INPE). No warranty, expressed or implied, is made by the INPE or the Brazil Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. The software is provided on the condition that neither the INPE nor the Brazil Government shall be held liable for any damages resulting from the authorized or unauthorized use of the software.
 
-Licence
+License
 MIT License
 Copyright (c) 2019 Rodrigues et al.
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -77,7 +77,8 @@ def get_band_array(filename, band_num=1, info=False):
             print("Opening file error!")
 
     geotransform = dataset.GetGeoTransform()
-
+    print(geotransform)
+    
     lrx = geotransform[0] + (dataset.RasterXSize * geotransform[1])
     lry = geotransform[3] + (dataset.RasterYSize * geotransform[5])
 
@@ -90,10 +91,29 @@ def get_band_array(filename, band_num=1, info=False):
     global min_radii_px
     global max_radii_px
 
+
+    # Setup the source projection
+    spatial_reference = osr.SpatialReference()
+    spatial_reference.ImportFromWkt(dataset.GetProjectionRef())
+   
+    center_lat = np.mean([lry, geotransform[3]])
+    
+    if spatial_reference.GetAttrValue('unit') == 'degree': #https://gis.stackexchange.com/a/60372
+        #https://stackoverflow.com/a/23875713
+        #Latitude:  1 deg = 110.54 km = 110540 m
+        #Longitude: 1 deg = 111.320*cos(latitude) km = 111320 * cos(latitude) m
+        geotransform = list(geotransform)
+
+        geotransform[5] =  geotransform[5] * 110540.0
+        geotransform[1] = geotransform[1] * (111320.0 * np.cos(np.deg2rad(center_lat)))
+
     #Optimal tunned:
     min_dist_px = (center_pivot + 300.) / geotransform[1]
     min_radii_px = (center_pivot - 200.) / geotransform[1]
     max_radii_px = (center_pivot + 300.) / geotransform[1]
+    print('min_dist:',min_dist_px)
+    print('min_radii:',min_radii_px)
+    print('max_radii_px:',max_radii_px)
 
     global res_x
     global res_y
@@ -140,7 +160,10 @@ def get_band_array(filename, band_num=1, info=False):
         print("NO DATA VALUE:", banda.GetNoDataValue())
 
     # obtencao dos arrays numpy das bandas
-    array = banda.ReadAsArray()    
+    array = banda.ReadAsArray()
+    print(array.min(), array.max())
+
+    array = np.ma.masked_array(array, np.isnan(array))      
 
     # Exclude the pixels with no data value and normalize data
     NoData = banda.GetNoDataValue()

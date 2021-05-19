@@ -13,7 +13,9 @@ default:
 	@echo 'Example: make list'
 
 install:
-	conda env create
+        @echo
+	@echo 'Creating Python environment using conda:'
+	conda create -y -n CenterPivotMatopiba -c conda-forge python=2.7 gdal matplotlib geopandas numpy opencv shapely
 	@echo
 	@echo 'Creating R environment using conda:'
 	conda create -y -n r_wtss r  r-essentials r-wtss r-zoo

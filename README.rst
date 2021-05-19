@@ -19,7 +19,9 @@ Installation
 Build Steps
 -----------
 
-**Setup Conda Environment** 
+.. warning:: Build steps tested only on Linux 18.04
+
+**Setup Conda Environment**
 
 With Conda installed [#]_, run::
 

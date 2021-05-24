@@ -19,7 +19,7 @@ Installation
 Build Steps
 -----------
 
-.. warning:: Build steps tested only on Linux 18.04
+.. warning:: Build steps tested only on Ubuntu 18.04
 
 **Setup Conda Environment**
 

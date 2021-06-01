@@ -38,7 +38,7 @@ With Conda installed [#]_, run::
 Usage
 -----  
 
-First of all, we need to do download the dataset (3 partial ZIP files) [#]_ containing Geotiff images of maximum response of vegetation (Greenest Pixel) measured using NDVI index in the MATOPIBA region. Please use the next lines to unsplit and unzip images::
+First of all, we need to do download the dataset (3 partial ZIP files) [#]_ containing Geotiff images of maximum response of vegetation (Greenest Pixel) measured using NDVI index in the MATOPIBA region. After download the files please use the next lines to unsplit and unzip images::
 
   $ zip -s 0 landsat_ndvi.zip --out landsat_ndvi_unsplit.zip
   $ unzip landsat_ndvi_unsplit.zip

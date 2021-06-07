@@ -4,8 +4,7 @@
 #        Imports
 #--------------------------
 
-from osgeo import osr, gdal, ogr, gdal_array
-from gdalconst import *             
+from osgeo import osr, gdal, ogr, gdal_array           
 gdal.UseExceptions()                
 from zipfile import ZipFile, is_zipfile
 import numpy as np

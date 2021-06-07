@@ -11,6 +11,10 @@
 *.cpg
 *.geojson
 
+#Paths
+csv
+landsat_ndvi
+
 # Except this file
 !shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.shp
 !shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.cpg

@@ -63,7 +63,7 @@ destino = './csv'
 Utils.mkdir_p(destino)
 
 # Save middlepoints in main cardinal directions of circles:
-with open(destino+'/LC8_pivots_middlepoints_coords.csv', 'wb') as myfile:
+with open(destino+'/LC8_pivots_middlepoints_coords.csv', 'w') as myfile:
      wr = csv.writer(myfile, quoting=csv.QUOTE_NONE, quotechar='')
      wr.writerow(["ObjectID", "Lon", "Lat"])
      wr.writerows(collection_points)

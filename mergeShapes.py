@@ -15,7 +15,8 @@ if os.path.exists(outputMergefn):
     outputdriver.DeleteDataSource(outputMergefn)
 
 filelist = os.listdir(directory)
-filelist.remove(outputFinalfn)
+if outputFinalfn in filelist:
+  filelist.remove(outputFinalfn)
  
 out_ds = outputdriver.CreateDataSource(outputMergefn) 
 out_layer = out_ds.CreateLayer(outputMergefn, geom_type = geomtype)

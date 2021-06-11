@@ -33,7 +33,12 @@ With Conda installed [#]_, run::
 .. [#] If you are using a git server inside a private network and are using a self-signed certificate or a certificate over an IP address, you may also simply use the git global config to disable the ssl checks::
 
   git config --global http.sslverify "false"
+  
+**Interactive online version of project:**
 
+.. raw:: html
+
+    <p align="center"><img src="https://colab.research.google.com/assets/colab-badge.svg"></p>
 
 Usage
 -----  

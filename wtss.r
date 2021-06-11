@@ -46,8 +46,9 @@ for (veg_ind in c("ndvi","evi") ) {
     
         if (dim(atco)[2] != dim(df)[1]){
             cat('This file has partial results of vegetation time serie:\n --> ',destfile,'  [Number of samples registered: ',dim(atco)[2],']\n\n')
-            cat('Source file to retrieve time series -> ',sourcefile,'  [Number of target samples:',dim(df)[1],']\n\n') 
-            res <- system("read -p 'Do you want use this source file to complete partial results (y), (n) to replace partial results with all new retrieve series (y/n/quit): ' input; echo $input", intern = TRUE)
+            cat('Source file to retrieve time series -> ',sourcefile,'  [Number of target samples:',dim(df)[1],']\n\n')
+            cat("Do you want use this source file to complete partial results (y), (n) to replace partial results with all new retrieve series (y/n/quit):")
+            res <- readLines(con = "stdin", 1)
             if (tolower(res) == 'y')
                 starts = dim(atco)[2] + 1
             else if (tolower(res) == 'n')
@@ -60,7 +61,8 @@ for (veg_ind in c("ndvi","evi") ) {
         } else{
             cat('There is already a time series file results of this vegetation index:\n',destfile,'\n\n')
             cat('It have the same number of samples defined in the source file:\n',sourcefile,'\n')
-            res <- system("read -p 'Do you want replace this time series file (y/n): ' input; echo $input", intern = TRUE)
+            cat("Do you want replace this time series file (y/n):")
+            res <- readLines(con = "stdin", 1)
             if (tolower(res) == 'y')
                 cat('Running search at WTSS to replace the file of time series!\n')
             else

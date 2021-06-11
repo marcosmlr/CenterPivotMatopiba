@@ -11,8 +11,7 @@
 *.cpg
 *.geojson
 
-#Paths
-csv
+#Path
 landsat_ndvi
 
 # Except this file

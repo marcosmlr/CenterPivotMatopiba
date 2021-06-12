@@ -14,10 +14,8 @@
 #Path
 landsat_ndvi
 
-# Except this file
-!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.shp
-!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.cpg
-!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.dbf
-!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.prj
-!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017.shx
+# Except this files
+!shp_ext/ANA_EMBRAPA_PivosMatopiba_Mapeados2017*
+!shp_ext/delimitacao*
+!shp_ext/wfsrequest.txt
 

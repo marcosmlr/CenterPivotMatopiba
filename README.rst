@@ -34,7 +34,7 @@ With Conda installed [#]_, run::
 
   git config --global http.sslverify "false"
   
-**Interactive online version of project:**
+**Alternative online version of project:**
 
 .. raw:: html
 

@@ -38,7 +38,7 @@ With Conda installed [#]_, run::
 
 .. raw:: html
 
-    <a href="https://colab.research.google.com/drive/1ibo9okmIPQ0HBPowLnuFB_9bFXb3B3MU#offline=true&sandboxMode=true"><p align="center"><img src="https://colab.research.google.com/assets/colab-badge.svg"></p></a>
+    <a href="https://colab.research.google.com/drive/1ibo9okmIPQ0HBPowLnuFB_9bFXb3B3MU?usp=sharing"><p align="center"><img src="https://colab.research.google.com/assets/colab-badge.svg"></p></a>
 
 Usage
 -----  

@@ -18,29 +18,28 @@ filelist = os.listdir(directory)
 if outputFinalfn in filelist:
     filelist.remove(outputFinalfn)
 
+filelist = [v for v in filelist if v.startswith(file_start) and v.endswith(file_ext)]
+
 if len(filelist) > 0:
     file = filelist[0]
-    if file.startswith(file_start) and file.endswith(file_ext):
-        ds = ogr.Open(directory + file)
-        layer = ds.GetLayer()
-        # Get projection from Layer- https://pcjericks.github.io/py-gdalogr-cookbook/projection.html
-        spatialRef = layer.GetSpatialRef()
-        print('Projection:', spatialRef.ExportToWkt())
-        
-
+    ds = ogr.Open(directory + file)
+    layer = ds.GetLayer()
+    # Get projection from Layer- https://pcjericks.github.io/py-gdalogr-cookbook/projection.html
+    spatialRef = layer.GetSpatialRef()
+    print('Projection:', spatialRef.ExportToWkt())
+    
     # Define output:
     out_ds = outputdriver.CreateDataSource(outputMergefn) 
     out_layer = out_ds.CreateLayer(outputMergefn, srs = spatialRef, geom_type = geomtype)
     
     for file in filelist:
-        if file.startswith(file_start) and file.endswith(file_ext):
-             print("Processing: " + file)
-             ds = ogr.Open(directory + file)
-             if ds is None:
-                 print("ds is empty")
-             lyr = ds.GetLayer()
-             for feat in lyr:
-                 out_feat = ogr.Feature(out_layer.GetLayerDefn())
-                 out_feat.SetGeometry(feat.GetGeometryRef().Clone())
-                 out_layer.CreateFeature(out_feat)
-                 out_layer.SyncToDisk()
+        print("Processing: " + file)
+        ds = ogr.Open(directory + file)
+        if ds is None:
+            print("ds is empty")
+        lyr = ds.GetLayer()
+        for feat in lyr:
+            out_feat = ogr.Feature(out_layer.GetLayerDefn())
+            out_feat.SetGeometry(feat.GetGeometryRef().Clone())
+            out_layer.CreateFeature(out_feat)
+            out_layer.SyncToDisk()
